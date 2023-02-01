@@ -1,7 +1,7 @@
-import { TypeormDatabase } from "@subsquid/typeorm-store";
-import { EvmBatchProcessor } from "@subsquid/evm-processor";
-import { Transfer } from "./model";
-import { events } from "./abi/MetaCoin";
+import { TypeormDatabase } from '@subsquid/typeorm-store';
+import {EvmBatchProcessor} from '@subsquid/evm-processor'
+import { Transfer } from './model';
+import { events } from './abi/MetaCoin';
 
 const contractAddress = "0xc0bb32fc688c4cac4417b8e732f26836c594c258".toLowerCase()
 const processor = new EvmBatchProcessor()
@@ -23,25 +23,28 @@ const processor = new EvmBatchProcessor()
   });
 
 processor.run(new TypeormDatabase(), async (ctx) => {
-  const transfers: Transfer[] = [];
+  const transfers: Transfer[] = []
   for (let c of ctx.blocks) {
     for (let i of c.items) {
-      if (i.address === contractAddress && i.kind === "evmLog") {
+
+      if (i.address === contractAddress && i.kind === "evmLog"){
         if (i.evmLog.topics[0] === events.Transfer.topic) {
-          const { _from, _to, _value } = events.Transfer.decode(i.evmLog);
-          transfers.push({
-            id: `${i.transaction.hash}-${i.evmLog.address}-${i.evmLog.index}`,
+
+          const { _from, _to, _value } = events.Transfer.decode(i.evmLog)
+
+          transfers.push(new Transfer({
+            id: `${String(c.header.height).padStart(10, '0')}-${i.transaction.hash.slice(3,8)}`,
+            block: c.header.height,
             from: _from,
             to: _to,
-            amount: _value.toBigInt(),
+            value: _value.toBigInt(),
             timestamp: BigInt(c.header.timestamp),
-            block: c.header.height,
-            transactionHash: i.transaction.hash,
-          });
+            txHash: i.transaction.hash
+          }))
         }
       }
     }
-  }
-
-  await ctx.store.save(transfers);
+   }
+   await ctx.store.save(transfers)
 });
+

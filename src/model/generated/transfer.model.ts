@@ -10,22 +10,23 @@ export class Transfer {
     @PrimaryColumn_()
     id!: string
 
-    @Column_("numeric", {transformer: marshal.bigintTransformer, nullable: false})
-    amount!: bigint
+    @Column_("int4", {nullable: false})
+    block!: number
 
+    @Index_()
     @Column_("text", {nullable: false})
     from!: string
 
+    @Index_()
     @Column_("text", {nullable: false})
     to!: string
 
     @Column_("numeric", {transformer: marshal.bigintTransformer, nullable: false})
-    timestamp!: bigint
-
-    @Index_()
-    @Column_("int4", {nullable: false})
-    block!: number
+    value!: bigint
 
     @Column_("text", {nullable: false})
-    transactionHash!: string
+    txHash!: string
+
+    @Column_("numeric", {transformer: marshal.bigintTransformer, nullable: false})
+    timestamp!: bigint
 }

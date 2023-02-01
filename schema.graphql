@@ -1,9 +1,9 @@
 type Transfer @entity {
   id: ID!
-  amount: BigInt!
-  from: String!
-  to: String!
+  block: Int!
+  from: String! @index
+  to: String! @index
+  value: BigInt!
+  txHash: String!
   timestamp: BigInt!
-  block: Int! @index
-  transactionHash: String!
 }
