@@ -6,16 +6,8 @@ import { Burn } from './model';
 
 const processor = new EvmBatchProcessor()
   .setDataSource({
-    // uncomment and set RPC_ENDPOONT to enable contract state queries. 
-    // Both https and wss endpoints are supported. 
-    // chain: process.env.RPC_ENDPOINT,
-
-    // Change the Archive endpoints for run the squid 
-    // against the other EVM networks
-    // For a full list of supported networks and config options
-    // see https://docs.subsquid.io/develop-a-squid/evm-processor/configuration/
-
-    archive: lookupArchive('eth-mainnet'),
+    chain: "localhost:8545",
+    archive: "localhost:8080",
   })
   .addTransaction([
     '0x0000000000000000000000000000000000000000'
