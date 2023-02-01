@@ -23,8 +23,7 @@ services:
             "--query-concurrency", "16",
     ]
     volumes:
-      - db:/data/db
+      - database:/data/db
 
 volumes:
-  db:
-  parquet:
+  database:
