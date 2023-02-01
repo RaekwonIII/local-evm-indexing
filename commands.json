@@ -20,11 +20,11 @@
       },
       "archive-up": {
         "description": "Start a local EVM Archive",
-        "cmd": ["docker-compose", "-f", "docker-compose.archive.yml", "up", "-d"]
+        "cmd": ["docker-compose", "-f", "archive/docker-compose.archive.yml", "up", "-d"]
       },
       "archive-down": {
         "description": "Stop a local EVM Archive",
-        "cmd": ["docker-compose", "-f", "docker-compose.archive.yml", "down"]
+        "cmd": ["docker-compose", "-f", "archive/docker-compose.archive.yml", "down"]
       },
       "migration:apply": {
         "description": "Apply the DB migrations",
