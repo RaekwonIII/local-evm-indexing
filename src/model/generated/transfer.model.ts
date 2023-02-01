@@ -10,14 +10,14 @@ export class Transfer {
     @PrimaryColumn_()
     id!: string
 
-    @Column_("numeric", {transformer: marshal.bigintTransformer, nullable: true})
-    amount!: bigint | undefined | null
+    @Column_("numeric", {transformer: marshal.bigintTransformer, nullable: false})
+    amount!: bigint
 
-    @Column_("text", {nullable: true})
-    from!: string | undefined | null
+    @Column_("text", {nullable: false})
+    from!: string
 
-    @Column_("text", {nullable: true})
-    to!: string | undefined | null
+    @Column_("text", {nullable: false})
+    to!: string
 
     @Column_("numeric", {transformer: marshal.bigintTransformer, nullable: false})
     timestamp!: bigint
