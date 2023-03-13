@@ -20,11 +20,10 @@ services:
             "--rpc-urls", "http://host.docker.internal:8545/",
             "--max-resp-body-size", "30",
             "--resp-time-limit", "5000",
-            "--query-concurrency", "16",
+            # "--query-concurrency", "16",
     ]
     volumes:
-      - db:/data/db
+      - database:/data/db
 
 volumes:
-  db:
-  parquet:
+  database:
