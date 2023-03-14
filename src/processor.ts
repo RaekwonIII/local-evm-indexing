@@ -3,7 +3,7 @@ import {EvmBatchProcessor} from '@subsquid/evm-processor'
 import { Transfer } from './model';
 import { events } from './abi/MetaCoin';
 
-const contractAddress = "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0".toLowerCase()
+const contractAddress = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512".toLowerCase()
 const processor = new EvmBatchProcessor()
   .setDataSource({
     chain: "http://localhost:8545",
@@ -29,7 +29,7 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 
       if (i.address === contractAddress && i.kind === "evmLog"){
         if (i.evmLog.topics[0] === events.Transfer.topic) {
-
+          ctx.log.info(`Found Transfer event with ID ${i.evmLog.id}`)
           const { _from, _to, _value } = events.Transfer.decode(i.evmLog)
 
           transfers.push(new Transfer({
