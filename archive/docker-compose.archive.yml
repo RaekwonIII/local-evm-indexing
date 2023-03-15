@@ -2,7 +2,7 @@ version: "3"
 
 services:
   worker:
-    image: subsquid/eth-archive-worker:latest
+    image: subsquid/eth-archive-worker:0.15.0
     environment:
       RUST_LOG: "info"
     ports:
